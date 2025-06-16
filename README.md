@@ -76,12 +76,12 @@ This Lakehouse architecture follows a structured **Bronze → Silver → Gold** 
 ---
 
 ## 🔒 Security & Governance Layer (Cross-Cutting)
-![Masked vs Unmasked query](architecture/query_sensitive_information.png)
+![Masked vs Unmasked query](new_users/query_sensitive_information.png)
 
 Security is enforced across all layers via:
 
 - **Microsoft Entra ID (Azure AD)**: Manages users and group roles.
-![Workspace selection with Microsoft Entra ID](architecture/workspace_new_user_can_getin.png)
+![Workspace selection with Microsoft Entra ID](new_users/workspace_new_user_can_getin.png)
 - **Unity Catalog**:
   - Controls access to catalogs, schemas, and tables
   - Applies **column-level masking** on sensitive data (e.g., `Gender`, `Age`)
@@ -119,7 +119,7 @@ Microsoft Entra ID is used to manage **enterprise identities**, ensuring consist
 ---
 
 ### 📦 Policy and Quotas (Azure Governance)
-![Access error page for unauthorized users](architecture/new_users_cannot_access_get_information.png)
+![Access error page for unauthorized users](new_users/new_users_cannot_access_get_information.png)
 
 Azure provides organization-wide control mechanisms that enforce limits and governance policies:
 
@@ -168,7 +168,7 @@ This document provides an in-depth description of how user access, group-based p
 
 ---
 ```
-![Permission setup and query access](architecture/give_access_to_query.png)
+![Permission setup and query access](new_users/give_access_to_query.png)
 
 ## 🧑‍💼 User and Group Management Overview
 
@@ -187,7 +187,7 @@ Access to the Databricks workspace and data catalog is managed through integrati
   - Subject to masking for sensitive fields.
 
 Group assignment is evaluated dynamically by Unity Catalog during data access.
-![User created but not added to Databricks](architecture/create_userid_without_addingtodatabricks.png)
+![User created but not added to Databricks](new_users/create_userid_without_addingtodatabricks.png)
 
 
 ---
@@ -211,7 +211,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA metacatalog.goldschema TO `data_analysis`;
 -- Optional: Allow UI table browsing
 GRANT BROWSE ON SCHEMA metacatalog.goldschema TO `data_analysis`;
 ```
-![Granting catalog-level access](architecture/create_group_grantpermission.png)
+![Granting catalog-level access](new_users/create_group_grantpermission.png)
 
 ## 🎭 Data Masking Strategy
 
@@ -229,7 +229,7 @@ To protect personal data, Unity Catalog implements **column-level masking** for 
 
 This approach ensures compliance with internal data governance standards and regulatory requirements such as GDPR or company-specific policies.
 ## 🧠 Governance Intent
-![Alt Text](architecture/add_member_to_group.png)
+![Alt Text](new_users/add_member_to_group.png)
 
 The architecture follows these principles:
 
@@ -241,9 +241,9 @@ The architecture follows these principles:
 ---
 
 ## 🐞 Common Access Issues Explained
-![User not in Databricks workspace yet](architecture/adding_to_databrick_without_addingtospecificworkspace.png)
-![Query shows insufficient privileges](architecture/cannot_query_to_specific_tables.png)
-![Query works with correct access](architecture/can_query_table_now.png)
+![User not in Databricks workspace yet](new_users/adding_to_databrick_without_addingtospecificworkspace.png)
+![Query shows insufficient privileges](new_users/cannot_query_to_specific_tables.png)
+![Query works with correct access](new_users/can_query_table_now.png)
 
 | Scenario                         | Cause                    | Explanation                                                                 |
 |----------------------------------|---------------------------|------------------------------------------------------------------------------|
